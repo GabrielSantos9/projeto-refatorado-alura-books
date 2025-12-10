@@ -1,16 +1,26 @@
-import Logo from '../Logo';
+import Logo from "../Logo";
 import OptionsHeader from "../OptionsHeader";
 import IconsHeader from "../IconsHeader";
-import './styles.css';
+import styled from "styled-components";
+
+const HeaderContainer = styled.header`
+  background-color: azure;
+  display: flex;
+  justify-content: center;
+
+  li {
+    list-style: none;
+  }
+`;
 
 function Header() {
   return (
-  <header className="App-header">
-    <Logo />
-    <OptionsHeader />
-    <IconsHeader />
-  </header>
+    <HeaderContainer>
+      <Logo />
+      <OptionsHeader />
+      <IconsHeader />
+    </HeaderContainer>
   );
-};
+}
 
 export default Header;
