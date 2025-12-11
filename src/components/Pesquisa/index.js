@@ -8,7 +8,7 @@ const PesquisaContainer = styled.section`
   color: #fff;
   text-align: center;
   padding: 85px 0;
-  height: 270px;
+  height: 300px;
   width: 100%;
 `;
 
@@ -25,10 +25,29 @@ const Subtitulo = styled.h3`
   margin-bottom: 15px;
 `;
 
+const ResultadoPesquisa = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row-reverse;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #002f52aa;
+     transition: 0.7s ease;
+  }
+`;
+
+const ImgLivro = styled.img`
+  width: 120px; 
+`;
+
+const TituloLivro = styled.p`
+  font-size: 20px;
+  padding-left: 15px;
+`;
 function Pesquisa() {
   const [livrosPesquisados, setLivrosPesquisados] = useState([]); //como de primeira não há nada pesquisado, o estado inicial é um array vazio
-
-  console.log(livrosPesquisados); //mostra no console os livros que foram encontrados na pesquisa de acordo com o que o usuário digitou no input.
 
   return (
     <PesquisaContainer>
@@ -40,6 +59,12 @@ function Pesquisa() {
         // O 'includes' verifica se o texto digitado está presente no nome do livro.
         setLivrosPesquisados(resultadosPesquisa) //atualiza o estado livrosPesquisados com os resultados da pesquisa.
       } } />
+      {livrosPesquisados.map(livro => ( //passa livro por livro na array livrosPesquisados para exibir os livros encontrados na pesquisa
+        <ResultadoPesquisa>
+          <TituloLivro>{livro.nome}</TituloLivro> {/* exibe o nome do livro encontrado */}
+          <ImgLivro src={livro.src}/> {/* exibe a imagem do livro encontrado */}
+        </ResultadoPesquisa>
+      ))}
     </PesquisaContainer>
   );
 }
