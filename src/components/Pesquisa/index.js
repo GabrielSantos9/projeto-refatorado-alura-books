@@ -46,6 +46,7 @@ const TituloLivro = styled.p`
   font-size: 20px;
   padding-left: 15px;
 `;
+
 function Pesquisa() {
   const [livrosPesquisados, setLivrosPesquisados] = useState([]); //como de primeira não há nada pesquisado, o estado inicial é um array vazio
 
