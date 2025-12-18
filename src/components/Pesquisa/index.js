@@ -34,12 +34,12 @@ const ResultadoPesquisa = styled.div`
 
   &:hover {
     background-color: #002f52aa;
-     transition: 0.7s ease;
+    transition: 0.7s ease;
   }
 `;
 
 const ImgLivro = styled.img`
-  width: 120px; 
+  width: 120px;
 `;
 
 const TituloLivro = styled.p`
@@ -54,18 +54,33 @@ function Pesquisa() {
     <PesquisaContainer>
       <Titulo>Já sabe por onde começar?</Titulo>
       <Subtitulo>Encontre o seu livro em nossa estante!</Subtitulo>
-      <Input placeholder="Escreva a sua próxima leitura" onBlur={evento => {
-        const textoDigitado = evento.target.value //pega o valor digitado no input pelo usuário
-        const resultadosPesquisa = livros.filter(livro => livro.nome.includes(textoDigitado)) //O 'filter' filtra os livros que contém o texto digitado no nome. Como ele filtra o livro pesquisado? o 'filter' vai percorrer o array 'livros' e para cada 'livro', ele verifica se o nome do livro (livro.nome) inclui o texto digitado (textoDigitado). Se incluir, esse livro é adicionado ao novo array 'resultadosPesquisa'. 
-        // O 'includes' verifica se o texto digitado está presente no nome do livro.
-        setLivrosPesquisados(resultadosPesquisa) //atualiza o estado livrosPesquisados com os resultados da pesquisa.
-      } } />
-      {livrosPesquisados.map(livro => ( //passa livro por livro na array livrosPesquisados para exibir os livros encontrados na pesquisa
-        <ResultadoPesquisa>
-          <TituloLivro>{livro.nome}</TituloLivro> {/* exibe o nome do livro encontrado */}
-          <ImgLivro src={livro.src}/> {/* exibe a imagem do livro encontrado */}
-        </ResultadoPesquisa>
-      ))}
+      <Input
+        placeholder="Escreva a sua próxima leitura"
+        onBlur={(evento) => {
+          const textoDigitado = evento.target.value; //pega o valor digitado no input pelo usuário
+          if (textoDigitado.length === 0) { //Caso não seja digitado nada pelo usuário não apareça nenhum resultado
+            setLivrosPesquisados([]);
+            return;
+          }
+          const resultadosPesquisa = livros.filter((livro) =>
+            livro.nome.includes(textoDigitado)
+          ); //O 'filter' filtra os livros que contém o texto digitado no nome. Como ele filtra o livro pesquisado? o 'filter' vai percorrer o array 'livros' e para cada 'livro', ele verifica se o nome do livro (livro.nome) inclui o texto digitado (textoDigitado). Se incluir, esse livro é adicionado ao novo array 'resultadosPesquisa'.
+          // O 'includes' verifica se o texto digitado está presente no nome do livro.
+          setLivrosPesquisados(resultadosPesquisa); //atualiza o estado livrosPesquisados com os resultados da pesquisa.
+        }}
+      />
+      {livrosPesquisados.map(
+        (
+          livro //passa livro por livro na array livrosPesquisados para exibir os livros encontrados na pesquisa
+        ) => (
+          <ResultadoPesquisa>
+            <TituloLivro>{livro.nome}</TituloLivro>{" "}
+            {/* exibe o nome do livro encontrado */}
+            <ImgLivro src={livro.src} />{" "}
+            {/* exibe a imagem do livro encontrado */}
+          </ResultadoPesquisa>
+        )
+      )}
     </PesquisaContainer>
   );
 }
