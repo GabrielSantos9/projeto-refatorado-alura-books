@@ -5,7 +5,7 @@
 Pack do **React Router** (Roteador React);
 
 **`npm install axios`**
-Esse pack será necessário para fazer requisições em HTTP (GET, POST, PATCH e DELETE), usando a API do **alura-books-server**;
+Esse pack será necessário para fazer **requisições** em **HTTP (GET, POST, PATCH e DELETE)**, usando a API do **alura-books-server**;
 
 # Getting Started with Create React App
 
