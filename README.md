@@ -7,6 +7,9 @@ Pack do **React Router** (Roteador React);
 **`npm install axios`**
 Esse pack será necessário para fazer **requisições** em **HTTP (GET, POST, PATCH e DELETE)**, usando a API do **alura-books-server**;
 
+O **'async' (assincronismo)**: ele faz com que a o código da função trabalhe em tempos diferentes.
+O **'await' (esperar):** enquanto houver o tempo de espera. Aonde é adicionado o await, o código tem que esperar o resultado chegar para depois seguir adiante para o próximo código (que nesse caso seria o 'return response.data)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

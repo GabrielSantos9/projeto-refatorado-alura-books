@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Header from "../components/Header";
 import Pesquisa from "../components/Pesquisa";
 import UltimosLancamentos from "../components/UltimosLancamentos";
 
