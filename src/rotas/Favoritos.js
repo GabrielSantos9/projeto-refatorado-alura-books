@@ -4,6 +4,7 @@ import { getFavoritos, deletarLivro } from "../servicos/favoritos";
 import { TituloContainer } from "../components/Titulo";
 import imgBook from "../imgs/livro.png";
 import FavoriteIcon from "../imgs/favorite-icon.png";
+import FavoriteTeste from "../imgs/favorite-test.png";
 
 const AppContainer = styled.div`
   height: 100vh;
@@ -40,33 +41,34 @@ const FavoritosContainer = styled.div`
     filter: blur(4px);
     opacity: 0.5;
     transform: scale(0.95);
-    background-color: red;
   }
 `;
 
 export const TituloLivro = styled.h1`
-  font-size: 20px;
-  background-color: #f6ac24;
-  color: #1c1c1c;
+  font-size: 13px;
+  color: #fff;
   margin-left: 5px;
   margin-right: 5px;
-  width: 100%;
   text-align: center;
+  width: 209px;
+  height: 35px;
+  overflow: hidden;
+  margin-top: 0px;
 `;
 
 const ImgLivro = styled.img`
-  width: 220px;
+  width: 209px;
 `;
 
 const IconFavorite = styled.img`
   width: 30px;
   position: absolute;
   top: 10px;
-  right: 15px;
+  right: 20px;
 
-  :hover {
-    transition: 0.3s;
-    background-color: aliceblue;
+  &:hover {
+    content: url(${FavoriteTeste});
+    transform: scale(1.05);
   }
 `;
 
@@ -86,7 +88,6 @@ function Favoritos() {
   async function deleteFavorito(id) {
     await deletarLivro(id);
     await fetchFavoritos();
-    alert(`Livro de id: ${id} deletado com sucesso!`);
   }
 
   useEffect(() => {
@@ -103,12 +104,16 @@ function Favoritos() {
           (
             favorito //Puxa os favoritos
           ) => (
-            <Livros onClick={() => deleteFavorito(favorito.id)}>
-              <TituloLivro>{favorito.nome}</TituloLivro>
+            <Livros>
               <LivrosIMG>
                 <ImgLivro src={imgBook} alt="image-book" />
-                <IconFavorite src={FavoriteIcon} alt="teste" />
+                <IconFavorite
+                  onClick={() => deleteFavorito(favorito.id)}
+                  src={FavoriteIcon}
+                  alt="teste"
+                />
               </LivrosIMG>
+              <TituloLivro>{favorito.nome}</TituloLivro>
             </Livros>
           )
         )}
