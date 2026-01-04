@@ -2,7 +2,8 @@ import Input from "../Input";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { getLivros } from "../../servicos/livros";
-import {postFavorito} from "../../servicos/favoritos"
+import {postFavorito} from "../../servicos/favoritos";
+import IMGLivro from "../../imgs/livro.png";
 
 const PesquisaContainer = styled.section`
   background-image: linear-gradient(90deg, #002f52 35%, #326589 165%);
@@ -44,7 +45,7 @@ const TotalRes = styled.div`
 const ResultadoPesquisa = styled.div`
   text-align: start;
   cursor: pointer;
-  height: 30px;
+  height: 60px;
   display: flex;
   align-items: center;
 
@@ -55,7 +56,7 @@ const ResultadoPesquisa = styled.div`
 `;
 
 const ImgLivro = styled.img`
-  width: 120px;
+  width: 40px;
 `;
 
 const TituloLivro = styled.p`
@@ -92,7 +93,7 @@ async function insertFavorito(id) {
       <Subtitulo>Encontre o seu livro em nossa estante!</Subtitulo>
       <Input
         placeholder="Pesquise o livro"
-        onBlur={(evento) => {
+        onChange={(evento) => {
           const textoDigitado = evento.target.value; //pega o valor digitado no input pelo usuário.
 
           if (textoDigitado.length === 0) {
@@ -102,7 +103,7 @@ async function insertFavorito(id) {
           }
 
           const resultadosPesquisa = livros.filter((livro) =>
-            livro.nome.includes(textoDigitado)
+            livro.nome.toLowerCase().includes(textoDigitado.toLowerCase())
           ); //O 'filter' filtra os livros que contém o texto digitado no nome. Como ele filtra o livro pesquisado? o 'filter' vai percorrer o array 'livros' e para cada 'livro', ele verifica se o nome do livro (livro.nome) inclui o texto digitado (textoDigitado). Se incluir, esse livro é adicionado ao novo array 'resultadosPesquisa'.
           // O 'includes' verifica se o texto digitado está presente no nome do livro.
           setLivrosPesquisados(resultadosPesquisa); //atualiza o estado livrosPesquisados com os resultados da pesquisa.
@@ -113,10 +114,10 @@ async function insertFavorito(id) {
       <TotalRes>
         {livrosPesquisados.map((livro) => (
           <ResultadoPesquisa onClick={() => insertFavorito(livro.id)}>
+            <ImgLivro src={IMGLivro} />
+            {/* exibe a imagem do livro encontrado. */}
             <TituloLivro>{livro.nome}</TituloLivro>
             {/* exibe o nome do livro encontrado. */}
-            <ImgLivro src={livro.src} />
-            {/* exibe a imagem do livro encontrado. */}
           </ResultadoPesquisa>
         ))}
       </TotalRes>

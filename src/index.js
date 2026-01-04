@@ -6,7 +6,8 @@ import { createGlobalStyle } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Favoritos from "./rotas/Favoritos";
-import Error503 from "./components/Error 503"
+import Error503 from "./components/Error 503";
+import Error404 from "./components/Error 404";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -35,9 +36,9 @@ root.render(
     <BrowserRouter>
       <Header />
       <Routes>
+        <Route path="*" element={<Error404 />} /> {/*Página não encontrada, caso o */}
+        <Route path="/" element={<Home />} />
         <Route path="/favoritos" element={<Favoritos />} />
-        {/*Rota de Favoritos (Favoritos.js) */}
-        <Route path="/" element={<Home />} /> {/*Rota da Home (App.js) */}
         <Route path="/categorias" element={<Error503 />} />
         <Route path="/estante" element={<Error503 />} />
       </Routes>
