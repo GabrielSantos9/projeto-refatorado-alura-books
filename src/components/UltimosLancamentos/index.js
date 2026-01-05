@@ -55,7 +55,7 @@ function UltimosLancamentos() {
   return (
     <UltimosLancamentosContainer>
       <TituloContainer cor="#ffffff" tamanhoFonte="30px">
-        ÚLTIMOS LAÇAMENTOS
+        ÚLTIMOS LANÇAMENTOS
       </TituloContainer>
       <Lancamentos>
         {livros.map((livro) => (

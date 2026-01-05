@@ -2,7 +2,8 @@ import Input from "../Input";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { getLivros } from "../../servicos/livros";
-import {postFavorito} from "../../servicos/favoritos";
+import { getFavoritos } from "../../servicos/favoritos";
+import { postFavorito } from "../../servicos/favoritos";
 import IMGLivro from "../../imgs/livro.png";
 
 const PesquisaContainer = styled.section`
@@ -82,10 +83,26 @@ function Pesquisa() {
   //O 'async' (assincronismo): ele faz com que a o código da função trabalhe em tempos diferentes.
   //O 'await' (esperar): enquanto houver o tempo de espera. Aonde é adicionado o await, o código tem que esperar o resultado chegar para depois seguir adiante para o próximo código (que nesse caso seria o 'return response.data)
 
-async function insertFavorito(id) {
-  await postFavorito(id)
-  alert(`Livro de id:${id} inserido com sucesso!`);
-}
+  const [favoritos, setFavoritos] = useState([]);
+
+  useEffect(() => {
+    async function fetchFavoritos() {
+      const favoritosDaAPI = await getFavoritos();
+      setFavoritos(favoritosDaAPI);
+    }
+
+    fetchFavoritos();
+  }, []);
+
+  async function insertFavorito(id) {
+    if (favoritos.some((livro) => livro.id === id)) {
+      alert("Livro já está nos favoritos");
+      return;
+    }
+
+    await postFavorito(id);
+    setFavoritos([...favoritos, { id }]);
+  }
 
   return (
     <PesquisaContainer>
