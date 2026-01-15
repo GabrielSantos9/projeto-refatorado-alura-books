@@ -28,6 +28,12 @@ const GlobalStyle = createGlobalStyle`
   li {
     list-style: none;
   }
+
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+  * {
+    font-family: 'Roboto', sans-serif;
+  }
 `;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
