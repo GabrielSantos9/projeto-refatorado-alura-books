@@ -5,21 +5,23 @@ import imgPorcentagem from "../../imgs/porcentagem.png";
 const AnunciosContainer = styled.div`
   min-height: 100vh;
   text-align: center;
-  align-items: center;
   flex-direction: row;
   position: relative;
   background-color: #171717;
   display: flex;
-  `;
+  flex-direction: column;
+`;
 
-const Teste = styled.div`
+const Anuncio = styled.div`
   display: flex;
   margin-left: 385px;
+  margin-top: 90px;
 `;
 
 const ImgLivro = styled.img`
   width: 282px;
   height: 406px;
+  cursor: pointer;
 `;
 
 const ImgPorcentagem = styled.img`
@@ -41,7 +43,7 @@ const TituloLivro = styled.h1`
 const Subtitulo = styled.h2`
   font-size: 13px;
   color: #c2c2c2;
-  font-weight: 400;
+  font-weight: 600;
   margin-bottom: 0px;
   margin-top: 0px;
 `;
@@ -49,6 +51,7 @@ const Subtitulo = styled.h2`
 const PrecoAnterior = styled.span`
   color: #c5c5c5;
   font-size: 12px;
+  text-decoration: line-through;
   font-weight: 600;
 `;
 
@@ -67,17 +70,19 @@ const BotaoCompra = styled.button`
   font-weight: 500;
   border-radius: 25px;
   border: 0px;
+  cursor: pointer;
   margin-top: 25px;
 `;
 
-const InfoTeste = styled.div`
+const InformacoesLivro = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 80px;
   align-items: flex-start;
+  margin-top: 55px;
 `;
 
-const SemiInfo = styled.div`
+const InformacoesPreco = styled.div`
   display: flex;
   flex-direction: row;
   gap: 20px;
@@ -85,22 +90,69 @@ const SemiInfo = styled.div`
   align-items: center;
 `;
 
+const Descricao = styled.div``;
+
+const TituloDescricao = styled.h1`
+  margin: 0px;
+  color: #ffffff;
+  font-size: 29px;
+  font-weight: 700;
+  margin-top: 70px;
+  display: flex;
+  margin-left: 385px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 35px;
+    height: 3px;
+    margin-top: 32px;
+    background-color: #fd8325;
+  }
+`;
+
+const TextoDescricao = styled.p`
+  margin: 0;
+  color: #fff;
+  font-size: 24px;
+  width: 1150px;
+  height: 168px;
+  margin-left: 385px;
+  display: flex;
+  margin-top: 30px;
+`;
+
 function Anuncios() {
   return (
     <AnunciosContainer>
-      <Teste>
+      <Anuncio>
         <ImgLivro src={imgBook} alt="Capa do livro" />
-        <InfoTeste>
+        <InformacoesLivro>
           <Subtitulo>EDITORA ALURA</Subtitulo>
           <TituloLivro>Livro Iradissimo</TituloLivro>
-          <SemiInfo>
+          <InformacoesPreco>
             <ImgPorcentagem src={imgPorcentagem} alt="Ícone de porcentagem" />
             <PrecoAnterior>50,00</PrecoAnterior>
             <NovoPreco>Gratuito</NovoPreco>
-          </SemiInfo>
+          </InformacoesPreco>
           <BotaoCompra>Obter</BotaoCompra>
-        </InfoTeste>
-      </Teste>
+        </InformacoesLivro>
+      </Anuncio>
+      <Descricao>
+        <TituloDescricao>SINOPSE</TituloDescricao>
+        <TextoDescricao>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum. Curabitur
+          pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius,
+          turpis et commodo pharetra, est eros bibendum elit, nec luctus magna
+          felis sollicitudin mauris.
+        </TextoDescricao>
+      </Descricao>
     </AnunciosContainer>
   );
 }
