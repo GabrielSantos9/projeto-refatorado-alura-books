@@ -120,6 +120,7 @@ const TextoDescricao = styled.p`
   margin-left: 385px;
   display: flex;
   margin-top: 30px;
+  text-align: start;
 `;
 
 function Anuncios() {

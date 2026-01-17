@@ -5,6 +5,7 @@ import { getLivros } from "../../servicos/livros";
 import { getFavoritos } from "../../servicos/favoritos";
 import { postFavorito } from "../../servicos/favoritos";
 import IMGLivro from "../../imgs/livro.png";
+import { useNavigate } from "react-router-dom";
 
 const PesquisaContainer = styled.section`
   background-image: linear-gradient(90deg, #002f52 35%, #326589 165%);
@@ -68,6 +69,7 @@ const TituloLivro = styled.p`
 function Pesquisa() {
   const [livrosPesquisados, setLivrosPesquisados] = useState([]); //como de primeira não há nada pesquisado, o estado inicial é um array vazio.
   const [livros, setLivros] = useState([]); //como de primeira não há nada pesquisado no 'setLivros', o estado inicial é um array vazio.
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchLivros();
@@ -130,7 +132,12 @@ function Pesquisa() {
       />
       <TotalRes>
         {livrosPesquisados.map((livro) => (
-          <ResultadoPesquisa onClick={() => insertFavorito(livro.id)}>
+          <ResultadoPesquisa
+            onClick={() => {
+              insertFavorito(livro.id);
+              navigate(`/livro/${livro.id}`);
+            }}
+          >
             <ImgLivro src={IMGLivro} />
             {/* exibe a imagem do livro encontrado. */}
             <TituloLivro>{livro.nome}</TituloLivro>
