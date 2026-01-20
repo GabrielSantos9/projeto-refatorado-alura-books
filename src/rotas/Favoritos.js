@@ -4,7 +4,7 @@ import { getFavoritos, deletarLivro } from "../servicos/favoritos";
 import { TituloContainer } from "../components/Titulo";
 import imgBook from "../imgs/livro.png";
 import FavoriteIcon from "../imgs/favorite-icon.png";
-import FavoriteTeste from "../imgs/favorite-test.png";
+import FavoriteButton from "../imgs/Favorite-button.png";
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -79,7 +79,7 @@ const IconFavorite = styled.img`
   right: 20px;
 
   &:hover {
-    content: url(${FavoriteTeste});
+    content: url(${FavoriteButton});
     transform: scale(1.05);
   }
 `;

@@ -4,18 +4,20 @@ import imgPorcentagem from "../../imgs/porcentagem.png";
 
 const AnunciosContainer = styled.div`
   min-height: 100vh;
+  max-width: 100vw;
   text-align: center;
   flex-direction: row;
   position: relative;
   background-color: #171717;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 const Anuncio = styled.div`
   display: flex;
-  margin-left: 385px;
   margin-top: 90px;
+  width: 700px;
 `;
 
 const ImgLivro = styled.img`
@@ -33,7 +35,6 @@ const TituloLivro = styled.h1`
   font-size: 29px;
   color: #fff;
   text-align: center;
-  /* width: 209px; */
   height: 34px;
   font-weight: 600;
   margin-top: 0px;
@@ -90,7 +91,10 @@ const InformacoesPreco = styled.div`
   align-items: center;
 `;
 
-const Descricao = styled.div``;
+const Descricao = styled.div`
+  width: 900px;
+  height: 100vh;
+`;
 
 const TituloDescricao = styled.h1`
   margin: 0px;
@@ -99,7 +103,6 @@ const TituloDescricao = styled.h1`
   font-weight: 700;
   margin-top: 70px;
   display: flex;
-  margin-left: 385px;
 
   &::after {
     content: "";
@@ -115,9 +118,7 @@ const TextoDescricao = styled.p`
   margin: 0;
   color: #fff;
   font-size: 24px;
-  width: 1150px;
   height: 168px;
-  margin-left: 385px;
   display: flex;
   margin-top: 30px;
   text-align: start;
