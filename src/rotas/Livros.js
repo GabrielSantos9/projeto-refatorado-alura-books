@@ -5,6 +5,8 @@ import styled from "styled-components";
 import imgBook from "../imgs/livro.png";
 import imgPorcentagem from "../imgs/porcentagem.png";
 import heartIcon from "../imgs/heart.svg";
+import { postFavorito } from "../servicos/favoritos";
+import { getFavoritos } from "../servicos/favoritos";
 
 const AnunciosContainer = styled.div`
   min-height: 100vh;
@@ -128,24 +130,61 @@ const TextoDescricao = styled.p`
   text-align: start;
 `;
 
-const BotaoFavoritar = styled.button`
-  margin-top: 50px;
-  padding: 10px 6px;
-  font-size: 0.875rem;
-  background-color: #171717;
+const Favoritar = styled.span`
+  font-size: 1rem;
+  margin-left: 0.5rem;
   color: #fff;
-  border: 0;
 `;
 
 const HeartIMG = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
+`;
+
+const FavoriteButton = styled.button`
+  width: 110px;
+  height: 36px;
+  background-color: #171717;
+  border: 0px;
+  border-radius: 8px;
+  display: flex;
+  text-align: center;
+  margin-top: 30px;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: #ffffff97;
+    cursor: pointer;
+  }
 `;
 
 function Livro() {
   const { id } = useParams(); // pega o ID da URL
   const [livro, setLivro] = useState(null);
+
+  
+  const [favoritos, setFavoritos] = useState([]);
+
+  useEffect(() => {
+    async function fetchFavoritos() {
+      const favoritosDaAPI = await getFavoritos();
+      setFavoritos(favoritosDaAPI);
+    }
+
+    fetchFavoritos();
+  }, []);
+
+  async function insertFavorito(id) {
+    if (favoritos.some((livro) => livro.id === id)) {
+      alert("Livro já está nos favoritos");
+      return;
+    }
+
+    await postFavorito(id);
+    setFavoritos([...favoritos, { id }]);
+  }
 
   useEffect(() => {
     async function fetchLivro() {
@@ -174,8 +213,16 @@ function Livro() {
             <NovoPreco>{livro.preco}</NovoPreco>
           </InformacoesPreco>
           <BotaoCompra>Obter</BotaoCompra>
-          <HeartIMG src={heartIcon} alt="TESTE"/>
-          <BotaoFavoritar>Favoritar</BotaoFavoritar>
+          <FavoriteButton>
+            <HeartIMG src={heartIcon} alt="favorite-icon" />
+            <Favoritar
+              onClick={() => {
+                insertFavorito(livro.id);
+              }}
+            >
+              Favoritar
+            </Favoritar>
+          </FavoriteButton>
         </InformacoesLivro>
       </Anuncio>
       <Descricao>

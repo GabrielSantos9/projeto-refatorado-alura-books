@@ -8,7 +8,6 @@ import Header from "./components/Header";
 import Favoritos from "./rotas/Favoritos";
 import Error503 from "./components/Error 503";
 import Error404 from "./components/Error 404";
-import Anuncios from "./components/Anúncios";
 import Livro from "./rotas/Livros";
 
 const GlobalStyle = createGlobalStyle`
@@ -49,7 +48,6 @@ root.render(
         <Route path="/favoritos" element={<Favoritos />} />
         <Route path="/categorias" element={<Error503 />} />
         <Route path="/estante" element={<Error503 />} />
-        <Route path="/aaestante" element={<Anuncios />} />
         <Route path="/livro/:id" element={<Livro />} />
       </Routes>
     </BrowserRouter>
