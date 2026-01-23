@@ -7,6 +7,7 @@ import imgPorcentagem from "../imgs/porcentagem.png";
 import heartIcon from "../imgs/heart.svg";
 import { postFavorito } from "../servicos/favoritos";
 import { getFavoritos } from "../servicos/favoritos";
+import { deletarLivro } from "../servicos/favoritos";
 
 const AnunciosContainer = styled.div`
   min-height: 100vh;
@@ -23,7 +24,6 @@ const AnunciosContainer = styled.div`
 const Anuncio = styled.div`
   display: flex;
   margin-top: 90px;
-  width: 700px;
 `;
 
 const ImgLivro = styled.img`
@@ -143,8 +143,7 @@ const HeartIMG = styled.img`
 `;
 
 const FavoriteButton = styled.button`
-  width: 110px;
-  height: 36px;
+  padding: 8px 12px;
   background-color: #171717;
   border: 0px;
   border-radius: 8px;
@@ -164,7 +163,6 @@ function Livro() {
   const { id } = useParams(); // pega o ID da URL
   const [livro, setLivro] = useState(null);
 
-  
   const [favoritos, setFavoritos] = useState([]);
 
   useEffect(() => {
@@ -176,15 +174,39 @@ function Livro() {
     fetchFavoritos();
   }, []);
 
-  async function insertFavorito(id) {
-    if (favoritos.some((livro) => livro.id === id)) {
-      alert("Livro já está nos favoritos");
-      return;
-    }
+  // async function insertFavorito(id) {
+  //   if (favoritos.some((livro) => livro.id === id)) {
+  //     deletarLivro(id);
+  //     alert("Livro Removido dos favoritos com sucesso!");
+  //     return;
+  //   }
 
-    await postFavorito(id);
-    setFavoritos([...favoritos, { id }]);
+  //   await postFavorito(id);
+  //   setFavoritos([...favoritos, { id }]);
+  //   alert("Livro adicionado aos favoritos com sucesso!");
+  //   return;
+  // }
+
+  async function atualizarFavoritos() {
+  const favoritosAtualizados = await getFavoritos();
+  setFavoritos(favoritosAtualizados);
+}
+
+async function insertFavorito(id) {
+  const livroJaFavorito = favoritos.some((livro) => livro.id === id);
+
+  if (livroJaFavorito) {
+    await deletarLivro(id);
+    await atualizarFavoritos();
+    alert("Livro removido dos favoritos com sucesso!");
+    return;
   }
+
+  await postFavorito(id);
+  await atualizarFavoritos();
+  alert("Livro adicionado aos favoritos com sucesso!");
+}
+
 
   useEffect(() => {
     async function fetchLivro() {
@@ -215,12 +237,10 @@ function Livro() {
           <BotaoCompra>Obter</BotaoCompra>
           <FavoriteButton>
             <HeartIMG src={heartIcon} alt="favorite-icon" />
-            <Favoritar
-              onClick={() => {
-                insertFavorito(livro.id);
-              }}
-            >
-              Favoritar
+            <Favoritar onClick={() => insertFavorito(livro.id)}>
+              {favoritos.some((f) => f.id === livro.id)
+                ? "Remover dos favoritos"
+                : "Favoritar"}
             </Favoritar>
           </FavoriteButton>
         </InformacoesLivro>
