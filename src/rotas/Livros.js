@@ -5,9 +5,11 @@ import styled from "styled-components";
 import imgBook from "../imgs/livro.png";
 import imgPorcentagem from "../imgs/porcentagem.png";
 import heartIcon from "../imgs/heart.svg";
-import { postFavorito } from "../servicos/favoritos";
-import { getFavoritos } from "../servicos/favoritos";
-import { deletarLivro } from "../servicos/favoritos";
+import {
+  postFavorito,
+  getFavoritos,
+  deletarLivro,
+} from "../servicos/favoritos";
 
 const AnunciosContainer = styled.div`
   min-height: 100vh;
@@ -162,51 +164,8 @@ const FavoriteButton = styled.button`
 function Livro() {
   const { id } = useParams(); // pega o ID da URL
   const [livro, setLivro] = useState(null);
-
+  const [loadingFavorito, setLoadingFavorito] = useState(false);
   const [favoritos, setFavoritos] = useState([]);
-
-  useEffect(() => {
-    async function fetchFavoritos() {
-      const favoritosDaAPI = await getFavoritos();
-      setFavoritos(favoritosDaAPI);
-    }
-
-    fetchFavoritos();
-  }, []);
-
-  // async function insertFavorito(id) {
-  //   if (favoritos.some((livro) => livro.id === id)) {
-  //     deletarLivro(id);
-  //     alert("Livro Removido dos favoritos com sucesso!");
-  //     return;
-  //   }
-
-  //   await postFavorito(id);
-  //   setFavoritos([...favoritos, { id }]);
-  //   alert("Livro adicionado aos favoritos com sucesso!");
-  //   return;
-  // }
-
-  async function atualizarFavoritos() {
-  const favoritosAtualizados = await getFavoritos();
-  setFavoritos(favoritosAtualizados);
-}
-
-async function insertFavorito(id) {
-  const livroJaFavorito = favoritos.some((livro) => livro.id === id);
-
-  if (livroJaFavorito) {
-    await deletarLivro(id);
-    await atualizarFavoritos();
-    alert("Livro removido dos favoritos com sucesso!");
-    return;
-  }
-
-  await postFavorito(id);
-  await atualizarFavoritos();
-  alert("Livro adicionado aos favoritos com sucesso!");
-}
-
 
   useEffect(() => {
     async function fetchLivro() {
@@ -217,10 +176,53 @@ async function insertFavorito(id) {
 
     fetchLivro();
   }, [id]);
+ 
+  //Busca os livros favoritos na API e salva no estado do React, assim que o componente é carregado
+  useEffect(() => { //Busca dados da API
+    async function fetchFavoritos() {
+      const favoritosDaAPI = await getFavoritos(); //faz uma requisição (GET) na API
+      setFavoritos(favoritosDaAPI); //Salva os dados recebidos da API no estado
+    }
+
+    fetchFavoritos();
+  }, []);
+
+  /* Atualizar favoritos */
+  async function atualizarFavoritos() {
+    const favoritosAtualizados = await getFavoritos();
+    setFavoritos(favoritosAtualizados);
+  }
+
+  /* Favoritar e desfavoritar */
+  async function insertFavorito(id) {
+    if (loadingFavorito) return;
+
+    setLoadingFavorito(true);
+
+    try {
+      const livroJaFavorito = favoritos.some((livro) => livro.id === id);
+
+      if (livroJaFavorito) {
+        await deletarLivro(id);
+        console.log("Livro removido dos favoritos!");
+      } else {
+        await postFavorito(id);
+        console.log("Livro adicionado aos favoritos!");
+      }
+
+      await atualizarFavoritos();
+    } catch (error) {
+      console.error("Erro ao atualizar favoritos", error);
+    } finally {
+      setLoadingFavorito(false);
+    }
+  }
 
   if (!livro) {
     return <p>Livro não encontrado</p>;
   }
+
+  const livroJaFavorito = favoritos.some((fav) => fav.id === livro.id); //verifica se o livro exibido na tela já existe na lista de favoritos, para controlar corretamente a ação e o estado do botão.
 
   return (
     <AnunciosContainer>
@@ -235,12 +237,21 @@ async function insertFavorito(id) {
             <NovoPreco>{livro.preco}</NovoPreco>
           </InformacoesPreco>
           <BotaoCompra>Obter</BotaoCompra>
-          <FavoriteButton>
-            <HeartIMG src={heartIcon} alt="favorite-icon" />
-            <Favoritar onClick={() => insertFavorito(livro.id)}>
-              {favoritos.some((f) => f.id === livro.id)
-                ? "Remover dos favoritos"
-                : "Favoritar"}
+          <FavoriteButton
+            onClick={() => insertFavorito(livro.id)}
+            disabled={loadingFavorito}
+            style={{
+              opacity: loadingFavorito ? 0.5 : 1,
+              cursor: loadingFavorito ? "not-allowed" : "pointer"
+            }}
+          >
+            <HeartIMG src={heartIcon} />
+            <Favoritar>
+            {loadingFavorito
+              ? "Processando..."
+              : livroJaFavorito
+              ? "Favoritado"
+              : "Favoritar"}
             </Favoritar>
           </FavoriteButton>
         </InformacoesLivro>
