@@ -163,54 +163,56 @@ const FavoriteButton = styled.button`
 
 function Livro() {
   const { id } = useParams(); // pega o ID da URL
-  const [livro, setLivro] = useState(null);
-  const [loadingFavorito, setLoadingFavorito] = useState(false);
-  const [favoritos, setFavoritos] = useState([]);
+  const [livro, setLivro] = useState(null); //Armazena os dados do livro atual
+  const [loadingFavorito, setLoadingFavorito] = useState(false); // Estado de controle para evitar múltiplos cliques rápidos
+  const [favoritos, setFavoritos] = useState([]); //Guarda a lista de livros favoritos
 
   useEffect(() => {
-    async function fetchLivro() {
-      const livros = await getLivros();
-      const livroEncontrado = livros.find((livro) => String(livro.id) === id);
-      setLivro(livroEncontrado);
+    //Busca o livro pelo id da url
+    async function fetchLivro() /*Busca dados da API*/ {
+      const livros = await getLivros(); //Busca todos os livros da API
+      const livroEncontrado = livros.find((livro) => String(livro.id) === id); //Procura o livro onde o id é igual ao id da URL
+      setLivro(livroEncontrado); // Salva o livro encontrado no estado
     }
 
-    fetchLivro();
-  }, [id]);
- 
+    fetchLivro(); //Execução da função
+  }, [id]); //Executa sempre que o id da URL mudar
+
   //Busca os livros favoritos na API e salva no estado do React, assim que o componente é carregado
-  useEffect(() => { //Busca dados da API
+  useEffect(() => {
+    //Busca dados da API
     async function fetchFavoritos() {
       const favoritosDaAPI = await getFavoritos(); //faz uma requisição (GET) na API
       setFavoritos(favoritosDaAPI); //Salva os dados recebidos da API no estado
     }
 
-    fetchFavoritos();
-  }, []);
+    fetchFavoritos(); //Execução da função
+  }, []); //Executa apenas uma vez quando o componente é montado
 
   /* Atualizar favoritos */
   async function atualizarFavoritos() {
-    const favoritosAtualizados = await getFavoritos();
-    setFavoritos(favoritosAtualizados);
+    const favoritosAtualizados = await getFavoritos(); //Busca os favoritos atualizados na API
+    setFavoritos(favoritosAtualizados); //Atualiza o estado com os favoritos mais recentes
   }
 
   /* Favoritar e desfavoritar */
   async function insertFavorito(id) {
-    if (loadingFavorito) return;
+    if (loadingFavorito) return; //Evita múltiplos cliques rápidos
 
-    setLoadingFavorito(true);
+    setLoadingFavorito(true); //Inicia o estado de carregamento
 
     try {
-      const livroJaFavorito = favoritos.some((livro) => livro.id === id);
+      const livroJaFavorito = favoritos.some((livro) => livro.id === id); //Verifica se o livro já está na lista de favoritos e some retorna true se encontrar algum livro com o mesmo id
 
-      if (livroJaFavorito) {
-        await deletarLivro(id);
+      if (livroJaFavorito) { //Se o livro já for favorito, remove ele
+        await deletarLivro(id); //Chama a função para deletar o livro da API
         console.log("Livro removido dos favoritos!");
-      } else {
-        await postFavorito(id);
+      } else { //Se o livro não for favorito, adiciona ele
+        await postFavorito(id); //Chama a função para adicionar o livro na API
         console.log("Livro adicionado aos favoritos!");
       }
 
-      await atualizarFavoritos();
+      await atualizarFavoritos(); //Atualiza a lista de favoritos após a ação de favoritar/desfavoritar
     } catch (error) {
       console.error("Erro ao atualizar favoritos", error);
     } finally {
@@ -242,16 +244,16 @@ function Livro() {
             disabled={loadingFavorito}
             style={{
               opacity: loadingFavorito ? 0.5 : 1,
-              cursor: loadingFavorito ? "not-allowed" : "pointer"
+              cursor: loadingFavorito ? "not-allowed" : "pointer",
             }}
           >
             <HeartIMG src={heartIcon} />
             <Favoritar>
-            {loadingFavorito
-              ? "Processando..."
-              : livroJaFavorito
-              ? "Favoritado"
-              : "Favoritar"}
+              {loadingFavorito
+                ? "Processando..."
+                : livroJaFavorito
+                  ? "Favoritado"
+                  : "Favoritar"}
             </Favoritar>
           </FavoriteButton>
         </InformacoesLivro>
