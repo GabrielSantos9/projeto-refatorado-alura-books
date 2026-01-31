@@ -58,6 +58,7 @@ const Button = styled.button`
   font-size: 15px;
   text-transform: uppercase;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 function CardRecomendacao({descricao, img }) { //props card (descrição e imagem)

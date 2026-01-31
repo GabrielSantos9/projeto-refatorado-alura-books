@@ -8,7 +8,20 @@ import Header from "./components/Header";
 import Favoritos from "./rotas/Favoritos";
 import Error503 from "./components/Error 503";
 import Error404 from "./components/Error 404";
+import { keyframes } from "styled-components";
 import Livro from "./rotas/Livros";
+
+const fadeDown = keyframes`
+  from {
+    opacity: 0;
+    transform: translate3d(0, -90px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+`;
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -18,6 +31,8 @@ const GlobalStyle = createGlobalStyle`
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+    animation: ${fadeDown} 0.6s ease forwards;
+  animation-delay: 0.2s;
 }
 
   code {
@@ -51,7 +66,7 @@ root.render(
         <Route path="/livro/:id" element={<Livro />} />
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // O 'BrowserRouter' ele é o encapsulador das rotas, ele que permite que as rotas existam.
