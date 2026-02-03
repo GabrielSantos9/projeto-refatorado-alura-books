@@ -5,6 +5,7 @@ import { TituloContainer } from "../components/Titulo";
 import imgBook from "../imgs/livro.png";
 import FavoriteIcon from "../imgs/favorite-icon.png";
 import FavoriteButton from "../imgs/Favorite-button.png";
+import { useNavigate } from "react-router-dom";
 
 const AppContainer = styled.div`
   min-height: 100vh;
