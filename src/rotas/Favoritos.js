@@ -92,6 +92,7 @@ const LivrosIMG = styled.div`
 
 function Favoritos() {
   const [favoritos, setFavoritos] = useState([]);
+  const navigate = useNavigate();  //troca de página via código, sem recarregar o site, guarda uma função (navigate) que muda a rota do site
 
   async function fetchFavoritos() {
     const favoritosDaAPI = await getFavoritos();
@@ -107,6 +108,10 @@ function Favoritos() {
     fetchFavoritos();
   }, []);
 
+  function abrirLivro(id) {
+  navigate(`/livro/${id}`); //navega para a página do livro com o id especificado
+}
+
   return (
     <AppContainer>
       <TituloContainer cor="#ffffff" tamanhoFonte="30px">
@@ -115,9 +120,9 @@ function Favoritos() {
       <FavoritosContainer>
         {favoritos.map(
           (
-            favorito //Puxa os favoritos
+            favorito, //Puxa os favoritos
           ) => (
-            <Livros>
+            <Livros onClick={() => abrirLivro(favorito.id)}>
               <LivrosIMG>
                 <ImgLivro src={imgBook} alt="image-book" />
                 <IconFavorite
@@ -129,7 +134,7 @@ function Favoritos() {
               <TituloLivro>{favorito.nome}</TituloLivro>
               <PrecoLivro>{favorito.preco}</PrecoLivro>
             </Livros>
-          )
+          ),
         )}
       </FavoritosContainer>
     </AppContainer>
