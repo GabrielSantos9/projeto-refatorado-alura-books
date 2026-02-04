@@ -67,13 +67,13 @@ const TituloLivro = styled.p`
 function Pesquisa() {
   const [livrosPesquisados, setLivrosPesquisados] = useState([]); //como de primeira não há nada pesquisado, o estado inicial é um array vazio.
   const [livros, setLivros] = useState([]); //como de primeira não há nada pesquisado no 'setLivros', o estado inicial é um array vazio.
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //Hook do 'react-router-dom' que permite a navegação programática entre rotas, com ele podemos redirecionar o usuário para diferentes páginas com base em ações ou eventos.
 
   useEffect(() => {
     fetchLivros();
   }, []); //'()' quando não há nada dentro da função ele passa ser uma função vazia. '() => {}, []' é uma function com o segundo parâmetro([]). Queremos chamar a API de 'livros' para pegar os dados assim que a tela carregar para acessar esses dados e salvar no estado.
 
-  //Função assync para funcionar no 'useEffect', pois o const e set livros direto no useE... não irá funcionar por ser regra sintaxe:
+  //Função assync para funcionar no 'useEffect', pois o 'useEffect' não aceita funções assíncronas diretamente.
   async function fetchLivros() {
     const LivrosDaAPI = await getLivros(); //Pegará os livros da API.
     setLivros(LivrosDaAPI); //Adicionará os livros da API no estado setLivros.
@@ -94,24 +94,22 @@ function Pesquisa() {
 
           if (textoDigitado.length === 0) {
             //Caso não seja digitado nada pelo usuário não apareça nenhum resultado.
-            setLivrosPesquisados([]);
+            setLivrosPesquisados([]); //atualiza o estado livrosPesquisados para um array vazio.
             return;
           }
 
-          const resultadosPesquisa = livros.filter((livro) =>
-            livro.nome.toLowerCase().includes(textoDigitado.toLowerCase())
+          const resultadosPesquisa = livros.filter((livro) => //cria uma nova array 'resultadosPesquisa' que contém os livros que correspondem ao texto digitado.
+            livro.nome.toLowerCase().includes(textoDigitado.toLowerCase()) //faz a busca ser case insensitive, ou seja, não diferencia maiúsculas de minúsculas. 
           ); //O 'filter' filtra os livros que contém o texto digitado no nome. Como ele filtra o livro pesquisado? o 'filter' vai percorrer o array 'livros' e para cada 'livro', ele verifica se o nome do livro (livro.nome) inclui o texto digitado (textoDigitado). Se incluir, esse livro é adicionado ao novo array 'resultadosPesquisa'.
           // O 'includes' verifica se o texto digitado está presente no nome do livro.
           setLivrosPesquisados(resultadosPesquisa); //atualiza o estado livrosPesquisados com os resultados da pesquisa.
         }}
-
-        //passa livro por livro na array livrosPesquisados para exibir os livros encontrados na pesquisa.
       />
       <TotalRes>
-        {livrosPesquisados.map((livro) => (
+        {livrosPesquisados.map((livro) => ( //mapeia o array livrosPesquisados para exibir cada livro encontrado na pesquisa.
           <ResultadoPesquisa
             onClick={() => {
-              navigate(`/livro/${livro.id}`);
+              navigate(`/livro/${livro.id}`); //navega para a página do livro específico quando o resultado da pesquisa é clicado.
             }}
           >
             <ImgLivro src={IMGLivro} />
@@ -125,11 +123,12 @@ function Pesquisa() {
   );
 }
 
-//insertFavorito(livro.id): tira o id do livro, via map.
+//insertFavorito(livro.id): tira o id do livro, via map e passa para a função insertFavorito que está no arquivo 'Livro/index.js' para adicionar o livro aos favoritos.
+
+//'onChange' é um evento que é disparado sempre que o valor de um elemento é alterado. No caso do input, ele é acionado sempre que o usuário digita algo no campo. Aqui, ele é usado para capturar o texto digitado pelo usuário em tempo real e atualizar o estado 'livrosPesquisados' com os resultados da pesquisa conforme o usuário digita.
 
 //'onBlur' é disparado quando o elemento perde o foco, quando clicamos fora do input por exemplo. Ele é usado aqui para atualizar o estado textoDigitado com o valor atual do input quando o usuário termina de digitar e sai do campo. Pode ser utilizado como uma função que nem no caso acima, onde sempre quando o usuario digitar algo e clicar fora do input, o valor digitado será salvo no estado textoDigitado e será exibido na tela dentro do <h1>.
 
 //'event.target.value' é usado para pegar o valor atual de um elemento que disparou um evento.
 
-//Anteriormente para puxarmos algum dado de livro nós usada o dadosPesquisa.js, do 'import { livros } from "./dadosPesquisa.js' porém, como agora vamos puxar os dados dos livros da API do 'alura-books-server' pode tirar esse import anterior.
 export default Pesquisa;

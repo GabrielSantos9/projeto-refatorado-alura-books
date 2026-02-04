@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom"; // Importa NavLink para navegação entre rotas
 
 const textOptions = ["CATEGORIAS", "FAVORITOS", "ESTANTE"]; // Array que será utilizada na 'li'
 
@@ -43,9 +43,9 @@ const Option = styled(NavLink)`
 function OptionsHeader() {
   return (
     <Options>
-      {textOptions.map((text) => (
-        <Option key={text} to={`/${text.toLowerCase()}`}>
-          <p>{text}</p>
+      {textOptions.map((text) => ( // Itera sobre cada item do array 'textOptions'
+        <Option key={text} to={`/${text.toLowerCase()}`}> {/* Define o link para cada opção */}
+          <p>{text}</p> {/* Exibe o texto da opção */}
         </Option>
       ))}
     </Options>
