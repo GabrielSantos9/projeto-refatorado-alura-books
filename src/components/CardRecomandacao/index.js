@@ -3,20 +3,20 @@ import styled from "styled-components";
 const Card = styled.div`
   background-color: #000;
   text-align: center;
-  width: 768px;
-  border-radius: 30px;
-  margin-bottom: 20px;
+  width: 48rem;
+  border-radius: 1.875rem;
+  margin-bottom: 1.25rem;
 `;
 const TituloCard = styled.h1`
   color: white;
-  font-size: 30px;
-  padding-left: 10px;
+  font-size: 1.875rem;
+  padding-left: 0.625rem;
 `;
 
 const InformacoesCard = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 `;
 
 const InfomacoesCurso = styled.div`
@@ -25,15 +25,15 @@ const InfomacoesCurso = styled.div`
 `;
 
 const TextoCurso = styled.h2`
-  font-size: 25px;
+  font-size: 1.5625rem;
   width: 70%;
 `;
 
 const TituloCurso = styled.span`
   color: #000;
   background-color: #f6ac24;
-  font-size: 23px;
-  width: 10px;
+  font-size: 1.4375rem;
+  width: 0.625rem;
 `;
 
 const Descricao = styled.p`
@@ -46,18 +46,18 @@ const ImagemRecomendacao = styled.div`
 `;
 
 const ImgLivro = styled.img`
-  padding-bottom: 10px;
-  border-radius: 5px;
+  padding-bottom: 0.625rem;
+  border-radius: 0.3125rem;
 `;
 
 const Button = styled.button`
-  height: 40px;
+  height: 2.5rem;
   background-color: #f6ac24;
   color: #000;
   border: 0;
-  font-size: 15px;
+  font-size: 0.9375rem;
   text-transform: uppercase;
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   cursor: pointer;
 `;
 

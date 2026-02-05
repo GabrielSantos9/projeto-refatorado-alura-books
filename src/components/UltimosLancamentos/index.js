@@ -17,7 +17,7 @@ const Livros = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 30px;
+  margin: 1.875rem;
   cursor: pointer;
   transition: all 0.3s ease;
 `;
@@ -26,22 +26,22 @@ const Lancamentos = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   background-color: #1c1c1c;
   min-width: 70%;
   max-width: 100%;
   justify-content: center;
-  border-radius: 25px;
+  border-radius: 1.5625rem;
 
   &:has(${Livros}:hover) ${Livros}:not(:hover) {
-    filter: blur(4px);
+    filter: blur(0.25rem);
     opacity: 0.5;
     transform: scale(0.95);
   }
 `;
 
 export const TituloLivro = styled.h1`
-  font-size: 20px;
+  font-size: 1.25rem;
   background-color: #f6ac24;
   width: 100%;
   text-align: center;
@@ -49,7 +49,7 @@ export const TituloLivro = styled.h1`
 `;
 
 const ImgLivro = styled.img`
-  width: 220px;
+  width: 13.75rem;
 `;
 
 function UltimosLancamentos() {

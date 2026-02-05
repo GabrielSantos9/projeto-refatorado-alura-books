@@ -10,7 +10,7 @@ const Options = styled.ul`
 
 const Option = styled(NavLink)`
   color: white;
-  padding: 0 15px;
+  padding: 0 0.9375rem;
   cursor: pointer;
   position: relative;
   text-decoration: none;
@@ -19,9 +19,9 @@ const Option = styled(NavLink)`
     content: "";
     position: absolute;
     left: 50%;
-    bottom: 10px;
+    bottom: 0.625rem;
     width: 0;
-    height: 2px;
+    height: 0.125rem;
     background-color: #f6ac24;
     transform: translateX(-50%);
     transition: width 0.3s;

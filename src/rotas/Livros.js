@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"; //Importa o hook para pegar parâmetros da URL
+import { useEffect, useState } from "react"; //Importa os hooks do React
 import { getLivros } from "../servicos/livros";
 import styled from "styled-components";
 import imgBook from "../imgs/livro.png";
@@ -25,99 +25,99 @@ const AnunciosContainer = styled.div`
 
 const Anuncio = styled.div`
   display: flex;
-  margin-top: 90px;
+  margin-top: 5.625rem;
 `;
 
 const ImgLivro = styled.img`
-  width: 282px;
-  height: 406px;
+  width: 17.625rem;
+  height: 25.375rem;
   cursor: pointer;
 `;
 
 const ImgPorcentagem = styled.img`
-  width: 54px;
-  height: 22px;
+  width: 3.375rem;
+  height: 1.375rem;
 `;
 
 const TituloLivro = styled.h1`
-  font-size: 29px;
+  font-size: 1.8125rem;
   color: #fff;
   text-align: center;
-  height: 34px;
+  height: 2.125rem;
   font-weight: 600;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
 `;
 
 const Subtitulo = styled.h2`
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #c2c2c2;
   font-weight: 600;
-  margin-bottom: 0px;
-  margin-top: 0px;
+  margin-bottom: 0;
+  margin-top: 0;
 `;
 
 const PrecoAnterior = styled.span`
   color: #c5c5c5;
-  font-size: 12px;
+  font-size: 0.75rem;
   text-decoration: line-through;
   font-weight: 600;
 `;
 
 const NovoPreco = styled.span`
   color: #fff;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
 `;
 
 const BotaoCompra = styled.button`
-  width: 160px;
-  height: 48px;
+  width: 10rem;
+  height: 3rem;
   background-color: #fd8325;
   color: #fff;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 500;
-  border-radius: 25px;
-  border: 0px;
+  border-radius: 1.5625rem;
+  border: 0;
   cursor: pointer;
-  margin-top: 25px;
+  margin-top: 1.5625rem;
 `;
 
 const InformacoesLivro = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 80px;
+  margin-left: 5rem;
   align-items: flex-start;
-  margin-top: 55px;
+  margin-top: 3.4375rem;
 `;
 
 const InformacoesPreco = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 20px;
-  margin-top: 30px;
+  gap: 1.25rem;
+  margin-top: 1.875rem;
   align-items: center;
 `;
 
 const Descricao = styled.div`
-  width: 900px;
+  width: 56.25rem;
   height: 100vh;
 `;
 
 const TituloDescricao = styled.h1`
-  margin: 0px;
+  margin: 0;
   color: #ffffff;
-  font-size: 29px;
+  font-size: 1.8125rem;
   font-weight: 700;
-  margin-top: 70px;
+  margin-top: 4.375rem;
   display: flex;
 
   &::after {
     content: "";
     position: absolute;
-    width: 35px;
-    height: 3px;
-    margin-top: 32px;
+    width: 2.1875rem;
+    height: 0.1875rem;
+    margin-top: 2rem;
     background-color: #fd8325;
   }
 `;
@@ -125,10 +125,10 @@ const TituloDescricao = styled.h1`
 const TextoDescricao = styled.p`
   margin: 0;
   color: #fff;
-  font-size: 24px;
-  height: 168px;
+  font-size: 1.5rem;
+  height: 10.5rem;
   display: flex;
-  margin-top: 30px;
+  margin-top: 1.875rem;
   text-align: start;
 `;
 
@@ -139,19 +139,19 @@ const Favoritar = styled.span`
 `;
 
 const HeartIMG = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
   cursor: pointer;
 `;
 
 const FavoriteButton = styled.button`
-  padding: 8px 12px;
+  padding: 0.5rem  0.75rem;
   background-color: #171717;
-  border: 0px;
-  border-radius: 8px;
+  border: 0;
+  border-radius: 0.5rem;
   display: flex;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 1.875rem;
   justify-content: center;
   align-items: center;
 

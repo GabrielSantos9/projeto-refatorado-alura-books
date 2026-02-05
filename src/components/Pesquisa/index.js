@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 const PesquisaContainer = styled.section`
   background-image: linear-gradient(90deg, #002f52 35%, #326589 165%);
   color: #fff;
-  padding: 85px 0;
-  height: 300px;
+  padding: 5.3125rem 0;
+  height: 18.75rem;
   width: 100%;
   display: flex;
   text-align: center;
@@ -21,23 +21,23 @@ const PesquisaContainer = styled.section`
 
 const Titulo = styled.h2`
   color: #fff;
-  font-size: 36px;
+  font-size: 2.25rem;
   width: 100%;
 `;
 
 const Subtitulo = styled.h3`
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
 `;
 
 const TotalRes = styled.div`
   flex-direction: column;
-  width: 492px;
-  font-size: 16px;
+  width: 30.75rem;
+  font-size: 1rem;
   position: absolute;
   z-index: 2;
-  top: 305px;
+  top: 19.0625rem;
   display: flex;
   background-color: black;
 `;
@@ -45,7 +45,7 @@ const TotalRes = styled.div`
 const ResultadoPesquisa = styled.div`
   text-align: start;
   cursor: pointer;
-  height: 60px;
+  height: 3.75rem;
   display: flex;
   align-items: center;
 
@@ -56,12 +56,12 @@ const ResultadoPesquisa = styled.div`
 `;
 
 const ImgLivro = styled.img`
-  width: 40px;
+  width: 2.5rem;
 `;
 
 const TituloLivro = styled.p`
-  font-size: 20px;
-  padding-left: 15px;
+  font-size: 1.25rem;
+  padding-left: 0.9375rem;
 `;
 
 function Pesquisa() {
@@ -98,26 +98,32 @@ function Pesquisa() {
             return;
           }
 
-          const resultadosPesquisa = livros.filter((livro) => //cria uma nova array 'resultadosPesquisa' que contém os livros que correspondem ao texto digitado.
-            livro.nome.toLowerCase().includes(textoDigitado.toLowerCase()) //faz a busca ser case insensitive, ou seja, não diferencia maiúsculas de minúsculas. 
+          const resultadosPesquisa = livros.filter(
+            (
+              livro, //cria uma nova array 'resultadosPesquisa' que contém os livros que correspondem ao texto digitado.
+            ) => livro.nome.toLowerCase().includes(textoDigitado.toLowerCase()), //faz a busca ser case insensitive, ou seja, não diferencia maiúsculas de minúsculas.
           ); //O 'filter' filtra os livros que contém o texto digitado no nome. Como ele filtra o livro pesquisado? o 'filter' vai percorrer o array 'livros' e para cada 'livro', ele verifica se o nome do livro (livro.nome) inclui o texto digitado (textoDigitado). Se incluir, esse livro é adicionado ao novo array 'resultadosPesquisa'.
           // O 'includes' verifica se o texto digitado está presente no nome do livro.
           setLivrosPesquisados(resultadosPesquisa); //atualiza o estado livrosPesquisados com os resultados da pesquisa.
         }}
       />
       <TotalRes>
-        {livrosPesquisados.map((livro) => ( //mapeia o array livrosPesquisados para exibir cada livro encontrado na pesquisa.
-          <ResultadoPesquisa
-            onClick={() => {
-              navigate(`/livro/${livro.id}`); //navega para a página do livro específico quando o resultado da pesquisa é clicado.
-            }}
-          >
-            <ImgLivro src={IMGLivro} />
-            {/* exibe a imagem do livro encontrado. */}
-            <TituloLivro>{livro.nome}</TituloLivro>
-            {/* exibe o nome do livro encontrado. */}
-          </ResultadoPesquisa>
-        ))}
+        {livrosPesquisados.map(
+          (
+            livro, //mapeia o array livrosPesquisados para exibir cada livro encontrado na pesquisa.
+          ) => (
+            <ResultadoPesquisa
+              onClick={() => {
+                navigate(`/livro/${livro.id}`); //navega para a página do livro específico quando o resultado da pesquisa é clicado.
+              }}
+            >
+              <ImgLivro src={IMGLivro} />
+              {/* exibe a imagem do livro encontrado. */}
+              <TituloLivro>{livro.nome}</TituloLivro>
+              {/* exibe o nome do livro encontrado. */}
+            </ResultadoPesquisa>
+          ),
+        )}
       </TotalRes>
     </PesquisaContainer>
   );

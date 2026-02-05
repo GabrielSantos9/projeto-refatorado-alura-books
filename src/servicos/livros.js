@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"; //Importa o Axios, biblioteca para fazer requisições HTTP.
 
 const livrosAPI = axios.create({ baseURL: "http://localhost:8000/livros/" }); //Conexão com a API, cria uma API.
 //{baseURL: "http://localhost:8000/livros"} É a URL que o Axios vai buscar os dados.

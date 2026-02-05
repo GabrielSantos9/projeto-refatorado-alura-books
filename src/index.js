@@ -51,13 +51,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <GlobalStyle />
-    <BrowserRouter>
-      <Header />
-      <Routes>
+const root = ReactDOM.createRoot(document.getElementById("root")); // ponto de entrada da aplicação
+root.render( //Aqui dentro vão os componentes que eu quero renderizar na tela
+  <React.StrictMode> {/*Ajuda a encontrar problemas na aplicação*/}
+    <GlobalStyle /> {/*Estilos globais da aplicação*/}
+    <BrowserRouter> {/*Ele é o encapsulador das rotas, ele que permite que as rotas existam.*/}
+      <Header /> {/*Componente de cabeçalho que aparece em todas as páginas*/}
+      <Routes> {/*É um "anunciador" que existirá rotas.*/}
         <Route path="*" element={<Error404 />} />
         <Route path="/" element={<Home />} />
         <Route path="/favoritos" element={<Favoritos />} />
@@ -69,11 +69,6 @@ root.render(
   </React.StrictMode>,
 );
 
-// O 'BrowserRouter' ele é o encapsulador das rotas, ele que permite que as rotas existam.
-// O 'Routes' é um "anunciador" que existirá rotas.
 // O 'Route' é a rota.
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals(); //função para medir o desempenho da aplicação

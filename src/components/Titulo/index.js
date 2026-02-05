@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const TituloContainer = styled.h1`
-  font-size: ${props => props.tamanhoFonte || "24px"};
+  font-size: ${props => props.tamanhoFonte || "1,5rem"};
   color: ${props => props.cor || "#FD8325"};
 `;
 

@@ -3,10 +3,9 @@ import profile from '../../imgs/perfil.svg';
 import styled from 'styled-components';  
 
 const Icon = styled.li`
-  margin-right: 40px;
-  width: 25px;
+  margin-right: 2.5rem;
+  width: 1.5625rem;
   cursor: pointer;
-  
 `;
 
 const Icons = styled.ul`

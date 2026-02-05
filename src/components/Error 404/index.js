@@ -23,13 +23,13 @@ const Subtitulo = styled.h2`
 
 const Paragrafo = styled.p`
   color: white;
-  font-size: 24px;
-  width: 620px;
+  font-size: 1.5rem;
+  width: 38.75rem;
 `;
 
 const Button = styled.a`
-  padding: 10px 20px;
-  border-radius: 10px;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.625rem;
   background-color: #f6ac24;
   color: #1c1c1c;
   font-weight: bold;

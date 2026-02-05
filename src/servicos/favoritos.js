@@ -27,4 +27,3 @@ async function deletarLivro(id) {
 export { getFavoritos, postFavorito, deletarLivro };
 
 //Coletar os dados dos livros e como na baseURL já tem um link para o GET não é necessário inserir aqui também, apenas insira a '/'.
-// Lembrando que: Response: é o que server manda e Request é o que o usuário envia para o servidor.

@@ -22,7 +22,7 @@ const Livros = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 30px;
+  margin: 1.875rem;
   cursor: pointer;
   transition: all 0.3s ease;
 `;
@@ -35,49 +35,49 @@ const FavoritosContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   background-color: #1c1c1c;
-  border-radius: 25px;
+  border-radius: 1.5625rem;
 
   &:has(${Livros}:hover) ${Livros}:not(:hover) {
-    filter: blur(4px);
+    filter: blur(0.25rem);
     opacity: 0.5;
     transform: scale(0.95);
   }
 `;
 
 export const TituloLivro = styled.h1`
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #fff;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 0.3125rem;
+  margin-right: 0.3125rem;
   text-align: center;
-  width: 209px;
-  height: 35px;
+  width: 13.0625rem;
+  height: 2.1875rem;
   overflow: hidden;
   margin-top: 0px;
   margin-bottom: 0px;
 `;
 
 export const PrecoLivro = styled.h3`
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #04ff00;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 0.3125rem;
+  margin-right: 0.3125rem;
   text-align: center;
-  width: 209px;
+  width: 13.0625rem;
   overflow: hidden;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
 `;
 
 const ImgLivro = styled.img`
-  width: 209px;
+  width: 13.0625rem;
 `;
 
 const IconFavorite = styled.img`
-  width: 30px;
+  width: 1.875rem;
   position: absolute;
-  top: 10px;
-  right: 20px;
+  top: 0.625rem;
+  right: 1.25rem;
 
   &:hover {
     content: url(${FavoriteButton});
@@ -87,30 +87,34 @@ const IconFavorite = styled.img`
 
 const LivrosIMG = styled.div`
   position: relative;
-  width: 220px;
+  width: 13.75rem;
 `;
 
 function Favoritos() {
-  const [favoritos, setFavoritos] = useState([]);
-  const navigate = useNavigate();  //troca de página via código, sem recarregar o site, guarda uma função (navigate) que muda a rota do site
+  const [favoritos, setFavoritos] = useState([]); //estado para armazenar os livros favoritos
+  const navigate = useNavigate(); //troca de página via código, sem recarregar o site, guarda uma função (navigate) que muda a rota do site
 
   async function fetchFavoritos() {
-    const favoritosDaAPI = await getFavoritos();
-    setFavoritos(favoritosDaAPI);
+    //função para buscar os livros favoritos da API
+    const favoritosDaAPI = await getFavoritos(); //chama a função que busca os favoritos na API
+    setFavoritos(favoritosDaAPI); //atualiza o estado com os livros favoritos buscados
   }
 
   async function deleteFavorito(id) {
-    await deletarLivro(id);
-    await fetchFavoritos();
+    //função para deletar um livro dos favoritos
+    await deletarLivro(id); //chama a função que deleta o livro na API
+    await fetchFavoritos(); //atualiza a lista de favoritos após a deleção
   }
 
   useEffect(() => {
-    fetchFavoritos();
-  }, []);
+    //hook que executa a função fetchFavoritos quando o componente é montado
+    fetchFavoritos(); //busca os livros favoritos da API
+  }, []); //array vazio significa que o efeito roda apenas uma vez, quando o componente é montado
 
   function abrirLivro(id) {
-  navigate(`/livro/${id}`); //navega para a página do livro com o id especificado
-}
+    //função para abrir a página do livro ao clicar nele
+    navigate(`/livro/${id}`); //navega para a página do livro com o id especificado
+  }
 
   return (
     <AppContainer>
@@ -119,8 +123,10 @@ function Favoritos() {
       </TituloContainer>
       <FavoritosContainer>
         {favoritos.map(
+          //mapeia os livros favoritos para exibição
           (
             favorito, //Puxa os favoritos
+            //retorna o componente Livros para cada livro favorito
           ) => (
             <Livros onClick={() => abrirLivro(favorito.id)}>
               <LivrosIMG>
